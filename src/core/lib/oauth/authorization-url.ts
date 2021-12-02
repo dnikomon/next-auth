@@ -16,9 +16,8 @@ import type { Cookie } from "../cookie"
  */
 export default async function getAuthorizationUrl(params: {
   options: InternalOptions<"oauth">
-  query: IncomingRequest["query"]
 }) {
-  const { options, query } = params
+  const { options } = params
   const { logger, provider } = options
   try {
     let params: any = {}
@@ -30,8 +29,6 @@ export default async function getAuthorizationUrl(params: {
     } else {
       params = { ...params, ...provider.authorization?.params }
     }
-
-    params = { ...params, ...query }
 
     // Handle OAuth v1.x
     if (provider.version?.startsWith("1.")) {

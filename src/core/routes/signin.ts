@@ -10,7 +10,7 @@ export default async function signin(params: {
   query: IncomingRequest["query"]
   body: IncomingRequest["body"]
 }): Promise<OutgoingResponse> {
-  const { options, query, body } = params
+  const { options, body } = params
   const { url, adapter, callbacks, logger, provider } = options
 
   if (!provider.type) {
@@ -23,7 +23,7 @@ export default async function signin(params: {
 
   if (provider.type === "oauth") {
     try {
-      const response = await getAuthorizationUrl({ options, query })
+      const response = await getAuthorizationUrl({ options })
       return response
     } catch (error) {
       logger.error("SIGNIN_OAUTH_ERROR", { error: error as Error, provider })
